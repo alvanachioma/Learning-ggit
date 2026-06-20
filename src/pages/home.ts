@@ -2,8 +2,10 @@ import {Component, signal} from '@angular/core';
 
 
 
+
 @Component({
   selector: 'mastering-git',
+  imports:[],
   template: `
     <div class="flex flex-col justify-center items-center">
       <div class="text-4xl">{{ title() }}</div>
