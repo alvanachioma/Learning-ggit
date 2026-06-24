@@ -1,11 +1,20 @@
 import {Injectable, signal} from '@angular/core';
 
+export interface QuestionOption {
+  id : number, text  : string , isSelected?: boolean
+}
+
+export interface QuizQuestion{
+  id : number,
+  title : string;
+  options : QuestionOption[];
+}
 @Injectable({
   providedIn: 'root'
 })
 export class ExamQuestionService {
 
-  questions=signal([
+  private questions=signal<QuizQuestion[]>([
     {
       id:1,
       title: "What is the safest way to store sharp knives in the kitchen",
