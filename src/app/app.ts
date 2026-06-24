@@ -12,7 +12,7 @@ import { RouterOutlet,RouterLink } from '@angular/router';
         <a routerLink="/home" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition">Home</a>
         <a routerLink="/obj" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition">Obj</a>
         <a routerLink="/exam" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition">Exam Questions</a>
-
+        <a routerLink="/grid" class="px-4 py-2 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition">Grid Practice</a>
       </div>
       <router-outlet></router-outlet>
 
