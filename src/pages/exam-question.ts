@@ -20,14 +20,14 @@ import {ExamQuestionService} from '../shared/examination-proj/services/exam-ques
               <div class="bg-white ring-2 ring-gray-200 p-4 rounded-2xl">{{alphabetMap[$index]}} - {{ opt.text }}</div>
 
             }
-            <div class="flex justify-between items-center mt-6">
-            <button (click)="gotoPreviousQuestion()"
-              class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">Prev. Question</button>
-              <button (click)="gotoNextQuestion()"
-              class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">Next Question</button>
-            </div>
-        </div>
 
+        </div>
+          <div class="flex justify-between items-center mt-6 ">
+            <button (click)="gotoPreviousQuestion()"
+                    class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">Prev. Question</button>
+            <button (click)="gotoNextQuestion()"
+                    class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">Next Question</button>
+          </div>
     </div>
     </div>
     </div>
