@@ -1,5 +1,15 @@
 import {Injectable, signal} from '@angular/core';
 
+  export interface optionQuestions {
+  id: number;
+  text: string;
+  isSelected?:false;
+}
+export interface  ExamQuestions {
+  id: number;
+  title: string;
+  options: optionQuestions[];
+}
 @Injectable({
   providedIn: 'root'
 })
