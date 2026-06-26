@@ -67,7 +67,7 @@ export class StopWatch {
       }
     });
   }
-private clearInterval = -1;
+  private clearInterval = -1;
   protected startTimer(): void {
     this.onTimerStarted.emit();
     this.clearInterval  = window.setInterval(() => {
