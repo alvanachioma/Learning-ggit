@@ -1,10 +1,16 @@
 import {Component, computed, signal,inject} from '@angular/core';
 import {ExamQuestionService} from '../shared/examination-proj/services/exam-question-services';
+import {StopWatch} from '../shared/stopWatch/StopWatch';
 
 @Component({
   selector: 'exam-question',
+  imports: [
+    StopWatch
+  ],
   template: `
+    <StopWatch />
     <div class="flex justify-center mt-3">
+
       <div
         class=" bg-green-100 min-h-[400px] 2xl:m-8 m-2 w-full xl:w-[600px] 2xl:w-[750px] p-4 rounded-2xl duration-300 hover:ring-4 hover:ring-green-400">
         <div class="flex justify-between">
@@ -27,8 +33,10 @@ import {ExamQuestionService} from '../shared/examination-proj/services/exam-ques
 
           </div>
           <div class="flex justify-between items-center mt-6  ">
-             <button (click)="gotoPreviousQuestion()"
-                     class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">Prev. Question</button>
+            <button (click)="gotoPreviousQuestion()"
+                    class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">
+              Prev. Question
+            </button>
             <button (click)="gotoNextQuestion()"
                     class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">
               Next Question
