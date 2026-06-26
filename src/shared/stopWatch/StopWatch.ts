@@ -24,7 +24,7 @@ import {Component, computed, signal, output, input, numberAttribute, effect, lin
   `
 })
 export class StopWatch {
-  private readonly CLOCK_SPEED  = 1000;
+  private readonly CLOCK_SPEED  =1000;
   private readonly SEC  = 60;
 
   startStopWatch = input(false);

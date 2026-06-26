@@ -17,8 +17,24 @@ export interface QuestionOption {
 export interface QuizQuestion{
   id : number,
   title : string;
+  isMultiOption ?: boolean;
   options : QuestionOption[];
 }
+
+const ngQuestions: QuizQuestion[] = [
+  {
+    id :1,
+    title : "",
+    options : []
+  }
+];
+const angularExam : ExamSubject = {
+  id : signal("ng-101"),
+  title : signal("Angular Exam (Beginner Level)"),
+  duration : signal({hour : 0, minute:50,second:0}),
+  questions : signal<QuizQuestion[]>(ngQuestions),
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,7 +48,19 @@ export class ExamQuestionService {
         {id:1, text: "In soapy water"},
         {id:2, text: "In knife block"},
         {id:3, text: "In Pointed Upward"},
-        {id:4, text:"In Under the pillow"}
+        {id:4, text:"Under the pillow"}
+      ],
+
+    },
+    {
+      id:16,
+      title: "Why do we need Food?",
+      isMultiOption : true,
+      options:[
+        {id:1, text: "For Our Growth"},
+        {id:2, text: "We can surve without food"},
+        {id:3, text: "For energy production in the body"},
+        {id:4, text:"None of the above"}
       ],
 
     },
@@ -182,7 +210,7 @@ export class ExamQuestionService {
   }
   getExam(examId : string){
     const exam : ExamSubject = {
-      duration : signal({hour : 0, minute : 0, second : 45}),
+      duration : signal({hour : 1, minute : 30, second : 0}),
       title : signal("Home Economics (Study I)"),
       id: signal(examId),
       questions : this.questions

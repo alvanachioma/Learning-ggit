@@ -29,6 +29,10 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
           @if (hasExamStarted() && !timerStopped()) {
             <div animate.leave="animate-slide-down" animate.enter="animate-slide-up" class="">
               <h3 class="  text-xl font-normal mt-3 p-4 mb-4 border-b-green-400 border-b-2">{{ currentQuestion().title }}</h3>
+              @if(currentQuestion().isMultiOption){
+                <div class="text-lg bg-amber-100 p-4 text-center text-red-500 font-bold">This is a Multi-Option Question. Choose all options that apply</div>
+              }
+
               <div class="grid grid-cols-2 gap-4 ">
 
                 @for (opt of currentQuestion().options; track opt.id) {
@@ -127,10 +131,17 @@ export class ExamQuestion {
 
   protected markAsSelectedOption(opt: any) {
 
-    this.currentQuestion().options.forEach(o => {
-      o.isSelected = false;
-    });
-    opt.isSelected = true;
+    // check for multi-option question and allow users to select multiple options
+    if(this.currentQuestion().isMultiOption){
+      opt.isSelected = !opt.isSelected;
+    }
+    else{
+      this.currentQuestion().options.forEach(o => {
+        o.isSelected = false;
+      });
+      opt.isSelected = true;
+    }
+
   }
 
   protected confirmBeforeSubmit(){
@@ -145,8 +156,8 @@ export class ExamQuestion {
         question: o.title,
         answers: o.options.filter(op => op.isSelected === true)
       };
-    });
-    this.examQuestionService.submitUserAnswer("",answer)
+    }).filter(x => x.answers.length > 0);
+    this.examQuestionService.submitUserAnswer(this.exam.id(),answer)
     console.log("ANSWER => ",answer);
     this.stopClock();
   }
