@@ -16,7 +16,7 @@ import {Component, computed, signal, output, input, numberAttribute, effect, lin
           <span>Min</span>
           <span>Sec</span>
         </div>
-        <p class="text-shadow-2xs text-[2.9rem] -mt-[10px]">{{elapsed()}}</p>
+        <p class="text-shadow-sm text-shadow-black text-[2.9rem] -mt-[10px]">{{elapsed()}}</p>
       </div>
 
     </div>
@@ -33,6 +33,7 @@ export class StopWatch {
   //label = input("");
   onTimerElapsed = output();
   onTimerStarted = output();
+  onTimerStopped = output();
   private _calculateCounterInSeconds(){
     return this.hour() * 60 * 60 + this.minute() * 60 + this.second();
   }
@@ -66,22 +67,29 @@ export class StopWatch {
       }
     });
   }
-
-  ngOnInit () {
-
-  }
+private clearInterval = -1;
   protected startTimer(): void {
     this.onTimerStarted.emit();
-    const clearInterval  = window.setInterval(() => {
+    this.clearInterval  = window.setInterval(() => {
       if(this._internal_counter() <=0 ){
         // Stop timer
-        window.clearInterval(clearInterval);
+        window.clearInterval(this.clearInterval);
         this.onTimerElapsed.emit();
       }
       else{
         this._internal_counter.update(x => x - 1);
       }
     }, this.CLOCK_SPEED);
+  }
+
+  stopTimer(){
+    // reset the counter
+    this._internal_counter.set(this._calculateCounterInSeconds());
+    window.clearInterval(this.clearInterval);
+    this.onTimerStopped.emit();
+    console.log("Timer STopped => ", this.elapsed());
+
+
   }
 
 }

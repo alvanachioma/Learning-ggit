@@ -1,5 +1,15 @@
-import {Injectable, signal} from '@angular/core';
+import {Injectable, Signal, signal, WritableSignal} from '@angular/core';
 
+type ExamSubject = {
+  id:Signal<string>;
+  title : Signal<string>,
+  duration : Signal<{
+    hour: number,
+    minute: number,
+    second: number
+  }>,
+  questions : Signal<QuizQuestion[]>
+}
 export interface QuestionOption {
   id : number, text  : string , isSelected?: boolean
 }
@@ -169,5 +179,18 @@ export class ExamQuestionService {
   ]);
   getQuestions(){
     return this.questions;
+  }
+  getExam(examId : string){
+    const exam : ExamSubject = {
+      duration : signal({hour : 0, minute : 30, second : 0}),
+      title : signal("Home Economics (Study I)"),
+      id: signal(examId),
+      questions : this.questions
+    };
+    return exam;
+  }
+
+  submitUserAnswer(examId :string , answer: { questionId: number; question: string; answers: QuestionOption[] }[]) {
+
   }
 }
