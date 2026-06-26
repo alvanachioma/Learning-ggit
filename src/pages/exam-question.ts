@@ -8,48 +8,68 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
     StopWatch
   ],
   template: `
-    <StopWatch />
+    <StopWatch [startStopWatch]="startExamClock()" [minute]="1" [second]="5" (onTimerStarted)="handleExamStarted()"  (onTimerElapsed)="alertUserAndSubmit()">
+      😂😂😂 Exam Duration
+    </StopWatch>
     <div class="flex justify-center mt-3">
 
       <div
-        class=" bg-green-100 min-h-[400px] 2xl:m-8 m-2 w-full xl:w-[600px] 2xl:w-[750px] p-4 rounded-2xl duration-300 hover:ring-4 hover:ring-green-400">
+        class="relative overflow-hidden bg-green-100 h-[450px] 2xl:m-8 m-2 w-full xl:w-[600px] 2xl:w-[750px] p-4 rounded-2xl duration-300 hover:ring-4 hover:ring-green-400">
         <div class="flex justify-between">
           <span class=" rounded-3xl border-blue-100 p-1 shadow-2xl cursor-pointer text-gray-400">{{ topic() }}</span>
           <span class="text-gray-500 font-bold  cursor-pointer">{{ questionTag() }}</span>
         </div>
 
-        <div class="">
-          <h3 class=" text-xl font-normal mt-3 p-4 mb-4 border-b-green-400 border-b-2">{{ currentQuestion().title }}</h3>
-          <div class="grid grid-cols-2 gap-4 ">
+        @if(!hasTimerElapsed()){
+          @if(hasExamStarted()){
+            <div animate.leave="animate-slide-down" animate.enter="animate-slide-up" class="">
+              <h3 class="  text-xl font-normal mt-3 p-4 mb-4 border-b-green-400 border-b-2">{{ currentQuestion().title }}</h3>
+              <div class="grid grid-cols-2 gap-4 ">
 
-            @for (opt of currentQuestion().options; track opt.id) {
-              <div
-                (click)="markAsSelectedOption(opt)"
-                [class]="(opt?.isSelected ?? false) ? selectedOptionClass() : ''"
-                class="bg-white ring-2 cursor-pointer ring-gray-200 p-4 rounded-2xl">{{ alphabetMap[$index] }} - {{ opt.text }}
+                @for (opt of currentQuestion().options; track opt.id) {
+                  <div
+                    (click)="markAsSelectedOption(opt)"
+                    [class]="(opt?.isSelected ?? false) ? selectedOptionClass() : ''"
+                    class="bg-white ring-2 cursor-pointer ring-gray-200 p-4 rounded-2xl">{{ alphabetMap[$index] }} - {{ opt.text }}
+                  </div>
+
+                }
+
+              </div>
+              <div class="flex justify-between items-center mt-6  ">
+                <button (click)="gotoPreviousQuestion()"
+                        class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">
+                  Prev. Question
+                </button>
+                <button (click)="gotoNextQuestion()"
+                        class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">
+                  Next Question
+                </button>
               </div>
 
-            }
 
-          </div>
-          <div class="flex justify-between items-center mt-6  ">
-            <button (click)="gotoPreviousQuestion()"
-                    class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">
-              Prev. Question
-            </button>
-            <button (click)="gotoNextQuestion()"
-                    class="ring-2 rounded-lg cursor-pointer ring-zinc-600 duration-300 hover:ring-zinc-800 hover:bg-zinc-600 bg-zinc-800 text-white shadow px-6 py-2">
-              Next Question
-            </button>
-          </div>
+            </div>
+          }
+          @else{
+            <div class="mt-20">
+              <h1 class="text-2xl text-gray-600 text-center">Exams will Start Soon!</h1>
+              <div class="text-center mt-8">
+                <button (click)="startExam()"
+                        class="ring-2 disabled:bg-gray-300 disabled:text-gray-400 rounded-lg cursor-pointer not-[disabled]:ring-green-600 duration-300 hover:ring-green-800 hover:bg-green-600 bg-green-800 text-white shadow px-6 py-2 text-xl">
+                  Start Exam
+                </button>
+              </div>
+            </div>
+          }
 
-          <div class="text-center mt-8">
-            <button (click)="submitAnswers()" [disabled]="!allowSubmit()"
-                    class="ring-2 disabled:bg-gray-300 disabled:text-gray-400 rounded-lg cursor-pointer not-[disabled]:ring-green-600 duration-300 hover:ring-green-800 hover:bg-green-600 bg-green-800 text-white shadow px-6 py-2 text-xl">
-              Submit Answers
-            </button>
+        }
+        @else{
+          <div animate.enter="animate-slide-up" class="  px-10 py-4 rounded-3xl ring-4 mt-4 ring-offset-red-400  flex-col flex justify-center items-center h-[85%] bg-red-200 text-red-600 text-xl">
+            <h1 class="text-[2.5rem]">Time Up!😻</h1>
+            <p class="font-bold text-lg">Your answers will be submitted</p>
           </div>
-        </div>
+        }
+
       </div>
     </div>
   `
@@ -94,11 +114,24 @@ export class ExamQuestion {
       o.isSelected = false;
     });
     opt.isSelected = true;
-    console.log("Selected Option Is:", opt);
-
   }
 
   protected submitAnswers() {
     console.log("Submitting Answers", this.questions());
+  }
+
+  hasTimerElapsed =signal(false);
+  protected alertUserAndSubmit() {
+    this.hasTimerElapsed =signal(true);
+    this.submitAnswers();
+  }
+
+  hasExamStarted =signal(false);
+  startExamClock =signal(false);
+  protected startExam() {
+    this.startExamClock.set(true);
+  }
+  protected handleExamStarted() {
+    this.hasExamStarted.set(true);
   }
 }

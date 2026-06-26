@@ -3,8 +3,22 @@ import {Component, computed, signal, output, input, numberAttribute, effect, lin
 @Component({
   selector: 'StopWatch',
   template: `
-    <div class="bg-red-500 text-[2.5rem] uppercase rounded-2xl m-3 font-extrabold italic text-white px-4 py-2 min-h-[50px] max-w-[350px] flex item-center justify-center" >
-      <span>{{elapsed()}}</span>
+    <div class="bg-green-700 bg-linear-to-l to-green-900 from-green-700  uppercase rounded-2xl m-3 font-extrabold  text-white px-4 py-2 min-h-[50px]
+        max-w-[350px] flex flex-col items-center justify-center" >
+      <span class="text-[15px]">
+        <ng-content>
+            Hey!
+        </ng-content>
+      </span>
+      <div class="flex flex-col justify-center items-center text-[13px] w-full mt-4">
+        <div class="flex justify-around w-full">
+          <span>Hr</span>
+          <span>Min</span>
+          <span>Sec</span>
+        </div>
+        <p class="text-shadow-2xs text-[2.9rem] -mt-[10px]">{{elapsed()}}</p>
+      </div>
+
     </div>
   `
 })
@@ -12,10 +26,11 @@ export class StopWatch {
   private readonly CLOCK_SPEED  = 1000;
   private readonly SEC  = 60;
 
+  startStopWatch = input(false);
   hour = input(0, {transform :(x :number) => x > 23 ? 23  :x});
   minute = input(0, {transform :(x :number) =>  x > 59 ? 59 : x});
   second = input(0, {transform :(x :number) => x > 59 ? 59 : x});
-
+  //label = input("");
   onTimerElapsed = output();
   onTimerStarted = output();
   private _calculateCounterInSeconds(){
@@ -45,11 +60,15 @@ export class StopWatch {
     return `${hr} : ${min} : ${sec}`;
   });
   constructor() {
-
+    effect(() => {
+      if(this.startStopWatch()){
+        this.startTimer();
+      }
+    });
   }
 
   ngOnInit () {
-    this.startTimer();
+
   }
   protected startTimer(): void {
     this.onTimerStarted.emit();
@@ -58,7 +77,6 @@ export class StopWatch {
         // Stop timer
         window.clearInterval(clearInterval);
         this.onTimerElapsed.emit();
-        this._internal_counter.set(this._calculateCounterInSeconds());
       }
       else{
         this._internal_counter.update(x => x - 1);

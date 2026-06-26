@@ -2,3 +2,22 @@
 
 @import "tailwindcss";
 
+.animate-slide-up{
+  animation: slide-up 500ms ease-in ;
+}
+.animate-slide-down{
+   animation: slide-down 600ms ease-in ;
+ }
+@keyframes slide-up{
+  from{
+    opacity: 0;
+    transform: translateY(120%);
+  }
+}
+@keyframes slide-down{
+  to{
+    opacity: 0;
+    transform: translateY(150%);
+  }
+}
+
