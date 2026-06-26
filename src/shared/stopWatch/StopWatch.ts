@@ -84,7 +84,7 @@ private clearInterval = -1;
 
   stopTimer(){
     // reset the counter
-    this._internal_counter.set(this._calculateCounterInSeconds());
+    this._internal_counter.set(0);
     window.clearInterval(this.clearInterval);
     this.onTimerStopped.emit();
     console.log("Timer STopped => ", this.elapsed());

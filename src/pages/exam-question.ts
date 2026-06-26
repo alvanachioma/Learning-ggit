@@ -11,8 +11,8 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
 
     <div class="flex flex-col justify-center items-center mt-3 mt-10 ">
       <div class="">
-        <StopWatch [startStopWatch]="startExamClock()" [minute]="0" [second]="10"
-                   (onTimerStopped)="timerStopped.set(true)"
+        <StopWatch [startStopWatch]="startExamClock()" [hour]="exam.duration().hour" [minute]="exam.duration().minute" [second]="exam.duration().second"
+                   (onTimerStopped)="timerStopped.set(true)" #clock
                    (onTimerStarted)="handleExamStarted()"
                    (onTimerElapsed)="alertUserAndSubmit()" #stopWatch>
           😂😂😂 Exam Duration
@@ -55,10 +55,6 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
                 <button (click)="submitAnswers()"
                         class="ring-2 disabled:bg-gray-300 disabled:text-gray-400 rounded-lg cursor-pointer not-[disabled]:ring-green-600 duration-300 hover:ring-green-800 hover:bg-green-600 bg-green-800 text-white shadow px-6 py-2 text-xl">
                   Submit Exam
-                </button>
-                <button (click)="stopWatch.stopTimer()"
-                        class="ring-2 disabled:bg-gray-300 disabled:text-gray-400 rounded-lg cursor-pointer not-[disabled]:ring-green-600 duration-300 hover:ring-green-800 hover:bg-green-600 bg-green-800 text-white shadow px-6 py-2 text-xl">
-                  Stop Timer Demo
                 </button>
 
               </div>
@@ -138,16 +134,19 @@ export class ExamQuestion {
   }
 
   protected submitAnswers() {
-    const answer = this.exam.questions().map(o => {
-      return {
-        questionId: o.id,
-        question: o.title,
-        answers: o.options.filter(op => op.isSelected === true)
-      };
-    });
-    this.examQuestionService.submitUserAnswer("",answer)
-    console.log("ANSWER => ",answer);
-    this.clock()?.stopTimer();
+    if(confirm(`Are you sure you want to Submit your Answers for ${this.exam.title()} ?`)){
+      const answer = this.exam.questions().map(o => {
+        return {
+          questionId: o.id,
+          question: o.title,
+          answers: o.options.filter(op => op.isSelected === true)
+        };
+      });
+      this.examQuestionService.submitUserAnswer("",answer)
+      console.log("ANSWER => ",answer);
+      this.stopClock();
+    }
+
   }
 
   protected stopClock(){

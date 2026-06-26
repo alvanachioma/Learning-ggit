@@ -182,7 +182,7 @@ export class ExamQuestionService {
   }
   getExam(examId : string){
     const exam : ExamSubject = {
-      duration : signal({hour : 0, minute : 30, second : 0}),
+      duration : signal({hour : 0, minute : 1, second : 30}),
       title : signal("Home Economics (Study I)"),
       id: signal(examId),
       questions : this.questions
