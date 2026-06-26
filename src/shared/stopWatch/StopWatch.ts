@@ -3,7 +3,7 @@ import {Component, computed, signal} from '@angular/core';
 @Component({
   selector: 'StopWatch',
   template: `
-    <div class="bg-red-500 text-[2.5rem] uppercase rounded-md m-3 font-extrabold italic text-white px-4 py-2 min-h-[50px] max-w-[350px] flex item-center justify-center" >
+    <div class="bg-red-500 text-[2.5rem] uppercase rounded-2xl m-3 font-extrabold italic text-white px-4 py-2 min-h-[50px] max-w-[350px] flex item-center justify-center" >
       <span>{{elapsed()}}</span>
     </div>
   `
@@ -11,7 +11,8 @@ import {Component, computed, signal} from '@angular/core';
 export class StopWatch {
   private readonly CLOCK_SPEED  = 1000;
   private readonly SEC  = 60;
-  private _internal_counter  = signal(1210);
+  private _internal_counter  = signal(9000);
+
   protected second  = computed(() => {
     return this._internal_counter() % this.SEC;
   });
@@ -19,7 +20,10 @@ export class StopWatch {
     return Math.floor(this._internal_counter() / (this.SEC * this.SEC));
   });
   protected minute  = computed(() => {
-    return Math.floor(this._internal_counter() / this.SEC);
+    let m = Math.floor(this._internal_counter() / this.SEC) ;
+
+    //const m2 =
+    return m < 60 ? m : Math.floor(Math.abs(((this.hour() * this.SEC * this.SEC) - this._internal_counter()) / 60)) ;
   });
 
   protected elapsed  = computed(() => {
@@ -34,15 +38,14 @@ export class StopWatch {
   }
   protected startTimer(): void {
 
-    window.setInterval(() => {
-
+    const clearInterval  = window.setInterval(() => {
       if(this._internal_counter() <=0 ){
         // Stop timer
+        window.clearInterval(clearInterval);
       }
       else{
         this._internal_counter.update(x => x - 1);
       }
-      //console.log("INTERVAL TIME",this._internal_counter());
     }, this.CLOCK_SPEED);
   }
 
