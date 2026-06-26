@@ -3,20 +3,21 @@ import {Component, computed, signal, output, input, numberAttribute, effect, lin
 @Component({
   selector: 'StopWatch',
   template: `
-    <div class="bg-green-700 bg-linear-to-l to-green-900 from-green-700  uppercase rounded-2xl m-3 font-extrabold  text-white px-4 py-2 min-h-[50px]
-        max-w-[350px] flex flex-col items-center justify-center" >
+    <div class="bg-green-700 bg-linear-to-l to-green-900 from-green-700  uppercase rounded-2xl xl:m-3 m-1 font-extrabold  text-white
+     px-2 py-1 xl:px-4 xl:py-2 lg:min-h-[50px] min-h-[30px]
+        xl:max-w-[350px] max:w-[300px] flex flex-col items-center justify-center" >
       <span class="text-[15px]">
         <ng-content>
             Hey!
         </ng-content>
       </span>
-      <div class="flex flex-col justify-center items-center text-[13px] w-full mt-4">
+      <div class="flex flex-col justify-center items-center text-[13px] w-full mt-2 lg:mt-4">
         <div class="flex justify-around w-full">
           <span>Hr</span>
           <span>Min</span>
           <span>Sec</span>
         </div>
-        <p class="text-shadow-sm text-shadow-black text-[2.9rem] -mt-[10px]">{{elapsed()}}</p>
+        <p class="text-shadow-sm text-shadow-black duration-300 text-[1.7rem] 2xl:text-[2.9rem] xl:-mt-[10px] -mt-[5px]">{{elapsed()}}</p>
       </div>
 
     </div>

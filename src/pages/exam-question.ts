@@ -9,7 +9,7 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
   ],
   template: `
 
-    <div class="flex flex-col justify-center items-center mt-3 mt-10 ">
+    <div class="flex flex-col justify-center items-center mt-2 lg:mt-3 2xl:mt-10 ">
       <div class="">
         <StopWatch [startStopWatch]="startExamClock()" [hour]="exam.duration().hour" [minute]="exam.duration().minute" [second]="exam.duration().second"
                    (onTimerStopped)="timerStopped.set(true)" #clock
@@ -19,7 +19,7 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
         </StopWatch>
       </div>
       <div
-        class="relative overflow-hidden bg-green-100 h-[450px] 2xl:m-8 m-2 w-full lg:w-[600px] xl:w-[650px] 2xl:w-[750px] p-4 rounded-2xl duration-300 hover:ring-4 hover:ring-green-400">
+        class="relative overflow-hidden bg-green-100 h-[500px] 2xl:m-8 m-2 w-full lg:w-[600px] xl:w-[650px] 2xl:w-[750px] p-4 rounded-2xl duration-300 hover:ring-4 hover:ring-green-400">
         <div class="flex justify-between">
           <span class=" rounded-3xl border-blue-100 p-1 shadow-2xl cursor-pointer text-gray-400">{{ exam.title() }}</span>
           <span class="text-gray-500 font-bold  cursor-pointer">{{ questionTag() }}</span>
@@ -51,8 +51,8 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
                   Next Question
                 </button>
               </div>
-              <div class="text-center mt-8">
-                <button (click)="submitAnswers()"
+              <div class="text-center 2xl:mt-8 mt-2 lg:mt-4">
+                <button (click)="confirmBeforeSubmit()"
                         class="ring-2 disabled:bg-gray-300 disabled:text-gray-400 rounded-lg cursor-pointer not-[disabled]:ring-green-600 duration-300 hover:ring-green-800 hover:bg-green-600 bg-green-800 text-white shadow px-6 py-2 text-xl">
                   Submit Exam
                 </button>
@@ -133,20 +133,22 @@ export class ExamQuestion {
     opt.isSelected = true;
   }
 
-  protected submitAnswers() {
+  protected confirmBeforeSubmit(){
     if(confirm(`Are you sure you want to Submit your Answers for ${this.exam.title()} ?`)){
-      const answer = this.exam.questions().map(o => {
-        return {
-          questionId: o.id,
-          question: o.title,
-          answers: o.options.filter(op => op.isSelected === true)
-        };
-      });
-      this.examQuestionService.submitUserAnswer("",answer)
-      console.log("ANSWER => ",answer);
-      this.stopClock();
+      this.submitAnswers();
     }
-
+  }
+  protected submitAnswers() {
+    const answer = this.exam.questions().map(o => {
+      return {
+        questionId: o.id,
+        question: o.title,
+        answers: o.options.filter(op => op.isSelected === true)
+      };
+    });
+    this.examQuestionService.submitUserAnswer("",answer)
+    console.log("ANSWER => ",answer);
+    this.stopClock();
   }
 
   protected stopClock(){
