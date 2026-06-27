@@ -1,5 +1,5 @@
 import {Component, computed, signal, inject, viewChild} from '@angular/core';
-import {ExamQuestionService} from '../shared/examination-proj/services/exam-question-services';
+import {ExamQuestionService, ExamSubject} from '../shared/examination-proj/services/exam-question-services';
 import {StopWatch} from '../shared/stopWatch/StopWatch';
 import {ActivatedRoute} from '@angular/router';
 
@@ -107,7 +107,7 @@ export class ExamQuestion {
   questionIndex = signal(0);
   protected examQuestionService = inject(ExamQuestionService)
   private activeRoute = inject(ActivatedRoute);
-  protected exam = this.examQuestionService.getAngularExam();//getExam("economics-001");
+  protected exam! : ExamSubject;//getExam("economics-001");
   questionTag = computed(() => {
     return `Question ${this.questionIndex() + 1} of ${this.exam.questions().length}`;
   });
@@ -173,7 +173,7 @@ export class ExamQuestion {
       };
     }).filter(x => x.answers.length > 0);
     this.examQuestionService.submitUserAnswer(this.exam.id(),answer)
-    console.log("ANSWER => ",answer);
+    //"ANSWER => ",answer);
     this.stopClock();
   }
 

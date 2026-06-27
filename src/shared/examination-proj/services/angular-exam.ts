@@ -602,11 +602,17 @@ ngQuestionsSignal.update(x => {
   return [...x];
 });
 
+/*ngQuestions.forEach(x => {
+  x.options = randomizeQuestionsIfRequested(x.options);
+});*/
+
 export const angularExam: ExamSubject = {
   randomizeQuestions: true,
   randomizeQuestionOptions: true,
+  ghostMarkPoint : signal(5),
+  useGhostMarks : signal(true),
   id: signal("ng-100"),
   title: signal("Angular Exam (Beginner Level)"),
   duration: signal({ hour: 0, minute: 40, second: 30 }),
-  questions: ngQuestionsSignal,
+  questions: ngQuestionsSignal/*signal(ngQuestions)*/,
 };

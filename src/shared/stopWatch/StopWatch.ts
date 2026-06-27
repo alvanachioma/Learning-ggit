@@ -88,7 +88,7 @@ export class StopWatch {
     this._internal_counter.set(0);
     window.clearInterval(this.clearInterval);
     this.onTimerStopped.emit();
-    console.log("Timer STopped => ", this.elapsed());
+    //"Timer STopped => ", this.elapsed());
 
 
   }

@@ -10,7 +10,8 @@ import {htmlExam} from './html-exam';
 import {cssExam} from './css-exam';
 import {jsExam} from './javascript-exam';
 
-export const examDb:ExamSubject[] = [
+export const examDb :ExamSubject[] = [
+  economicsExam,
   htmlExam,
   cssExam,
   jsExam,
@@ -19,8 +20,7 @@ export const examDb:ExamSubject[] = [
   softwareArchExam,
   angularExam,
   advanceAngularExam,
-  bibleExam,
-  economicsExam,
+  bibleExam
 ]
 
 export function randomizeArrayIndexes<T>(arr: T[]) {

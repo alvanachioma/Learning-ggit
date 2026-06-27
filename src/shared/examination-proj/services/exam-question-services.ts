@@ -1,5 +1,4 @@
 import {Injectable, Signal, signal} from '@angular/core';
-import {angularExam} from './angular-exam';
 import {examDb} from './examDb';
 
 export type ExamSubject = {
@@ -41,9 +40,9 @@ export interface AnswerKey {
   providedIn: 'root'
 })
 export class ExamQuestionService {
-  getAngularExam(){
+  /*getAngularExam(){
     return angularExam;
-  }
+  }*/
   getExam(examId : string){
     const exam = examDb.find(exam => exam.id().toLowerCase() === examId.toLowerCase());
     if(exam){
