@@ -14,19 +14,12 @@ export const routes: Routes = [
     path:'home',
     component:HomeComponent
   },
-  {
-    path:'obj',
-    component:ObjComponent
-  },
+
   {
     path:'exam',
     component:ExamQuestion
   },
 
-  {
-    path:'grid',
-    component:GridPracticeComponent
-  },
   {
     path:'**',
     redirectTo:'home'

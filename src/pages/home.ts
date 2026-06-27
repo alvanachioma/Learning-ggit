@@ -9,7 +9,7 @@ import {RouterLink} from '@angular/router';
     RouterLink
   ],
   template: `
-    <div class="">
+    <div class="flex justify-center items-center flex-col">
       <div class="text-4xl mb-5">Select an Exam you wish to take</div>
       @for (st of examsList; track $index) {
         <a class="px-6 py-4 ring-2 hover:ring-4 block lg:w-[60%]
@@ -27,7 +27,7 @@ import {RouterLink} from '@angular/router';
           }</span>
         </a>
       }
-      <div class="bg-red-400 w-[200px] h-[200px]"></div>
+
 
 
     </div>

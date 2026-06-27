@@ -1,7 +1,7 @@
 import {Component, computed, signal, inject, viewChild} from '@angular/core';
 import {ExamQuestionService, ExamSubject} from '../shared/examination-proj/services/exam-question-services';
 import {StopWatch} from '../shared/stopWatch/StopWatch';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'exam-question',
@@ -107,6 +107,7 @@ export class ExamQuestion {
   questionIndex = signal(0);
   protected examQuestionService = inject(ExamQuestionService)
   private activeRoute = inject(ActivatedRoute);
+  private router = inject(Router);
   protected exam! : ExamSubject;//getExam("economics-001");
   questionTag = computed(() => {
     return `Question ${this.questionIndex() + 1} of ${this.exam.questions().length}`;
@@ -122,9 +123,17 @@ export class ExamQuestion {
     this.activeRoute.queryParams.subscribe(x => {
       const selectedExamId = x["id"];
 
-      const ex = this.examQuestionService.getExam(selectedExamId);
-      if(ex){
-        this.exam = ex;
+      if(selectedExamId){
+        const ex = this.examQuestionService.getExam(selectedExamId);
+        if(ex){
+          this.exam = ex;
+        }
+        else {
+          this.router.navigate(["/home"]);
+        }
+      }
+      else {
+        this.router.navigate(["/home"]);
       }
 
     })
