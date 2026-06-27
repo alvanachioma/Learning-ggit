@@ -1,6 +1,7 @@
 import {signal} from "@angular/core";
 import {AnswerKey, ExamSubject, QuizQuestion} from "./exam-question-services";
-const ngQuestions: QuizQuestion[] = [
+import {randomizeQuestionsIfRequested} from './examDb';
+let ngQuestions: QuizQuestion[] = [
   // ---------- Single-option questions (22) ----------
   {
     id: 1,
@@ -230,8 +231,8 @@ const ngQuestions: QuizQuestion[] = [
     isMultiOption: true,
     options: [
       { id: 1, text: "Components" }, // correct
-      { id: 2, text: "Services" }, // correct
-      { id: 3, text: "Directives" }, // correct
+      { id: 2, text: "SQL tables" },
+      { id: 3, text: "CSS stylesheets" },
       { id: 4, text: "Stored procedures" }
     ]
   },
@@ -243,7 +244,7 @@ const ngQuestions: QuizQuestion[] = [
       { id: 1, text: "Interpolation" }, // correct
       { id: 2, text: "Property binding" }, // correct
       { id: 3, text: "Event binding" }, // correct
-      { id: 4, text: "Two-way binding" } // correct
+      { id: 4, text: "Diagonal binding" }
     ]
   },
   {
@@ -358,12 +359,12 @@ const ngQuestions: QuizQuestion[] = [
   },
   {
     id: 35,
-    title: "Which methods can change the value of a writable signal?",
+    title: "Which of these are valid methods on a WritableSignal?",
     isMultiOption: true,
     options: [
       { id: 1, text: "set()" }, // correct
       { id: 2, text: "update()" }, // correct
-      { id: 3, text: "emit()" },
+      { id: 3, text: "asReadonly()" }, // correct
       { id: 4, text: "next()" }
     ]
   },
@@ -418,7 +419,7 @@ const ngQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "ngClass directive" }, // correct
       { id: 2, text: "ngStyle directive" }, // correct
-      { id: 3, text: "[class.active] binding" }, // correct
+      { id: 3, text: "[paint] binding" },
       { id: 4, text: "(style) event binding" }
     ]
   },
@@ -484,7 +485,7 @@ const ngQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "Template-driven forms" }, // correct
       { id: 2, text: "Reactive forms" }, // correct
-      { id: 3, text: "ngModel for two-way binding" }, // correct
+      { id: 3, text: "Database-bound forms" },
       { id: 4, text: "SQL forms" }
     ]
   },
@@ -533,6 +534,12 @@ const ngQuestions: QuizQuestion[] = [
     ]
   }
 ];
+/*
+ngQuestions =  randomizeQuestionsIfRequested(ngQuestions);
+ngQuestions.forEach(y => {
+    y.options = randomizeQuestionsIfRequested(y.options)
+});*/
+
 export const ngAnswers: AnswerKey[] = [
   // Single-option questions
   { questionId: 1, correctOptionIds: [2] },
@@ -557,9 +564,8 @@ export const ngAnswers: AnswerKey[] = [
   { questionId: 20, correctOptionIds: [1] },
   { questionId: 21, correctOptionIds: [1] },
   { questionId: 22, correctOptionIds: [3] },
-  // Multi-option questions
-  { questionId: 23, correctOptionIds: [1, 2, 3] },
-  { questionId: 24, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 23, correctOptionIds: [1] },
+  { questionId: 24, correctOptionIds: [1, 2, 3] },
   { questionId: 25, correctOptionIds: [1, 2, 3] },
   { questionId: 26, correctOptionIds: [1, 2, 3] },
   { questionId: 27, correctOptionIds: [1, 2, 3] },
@@ -570,28 +576,37 @@ export const ngAnswers: AnswerKey[] = [
   { questionId: 32, correctOptionIds: [1, 2, 3] },
   { questionId: 33, correctOptionIds: [1, 2, 3] },
   { questionId: 34, correctOptionIds: [1, 2, 3] },
-  { questionId: 35, correctOptionIds: [1, 2] },
+  { questionId: 35, correctOptionIds: [1, 2, 3] },
   { questionId: 36, correctOptionIds: [1, 2, 3] },
   { questionId: 37, correctOptionIds: [1, 2, 3] },
   { questionId: 38, correctOptionIds: [1, 2, 3] },
   { questionId: 39, correctOptionIds: [1, 2, 3] },
-  { questionId: 40, correctOptionIds: [1, 2, 3] },
+  { questionId: 40, correctOptionIds: [1, 2] },
   { questionId: 41, correctOptionIds: [1, 2, 3] },
   { questionId: 42, correctOptionIds: [1, 2, 3] },
   { questionId: 43, correctOptionIds: [1, 2, 3] },
   { questionId: 44, correctOptionIds: [1, 2, 3] },
   { questionId: 45, correctOptionIds: [1, 2, 3] },
-  { questionId: 46, correctOptionIds: [1, 2, 3] },
+  { questionId: 46, correctOptionIds: [1, 2] },
   { questionId: 47, correctOptionIds: [1, 2, 3] },
   { questionId: 48, correctOptionIds: [1, 2, 3] },
   { questionId: 49, correctOptionIds: [1, 2, 3] },
   { questionId: 50, correctOptionIds: [1, 2, 3] }
 ];
+
+const ngQuestionsSignal = signal<QuizQuestion[]>(randomizeQuestionsIfRequested([...ngQuestions]));
+ngQuestionsSignal.update(x => {
+  x.forEach(y => {
+    y.options = randomizeQuestionsIfRequested(y.options);
+  });
+  return [...x];
+});
+
 export const angularExam: ExamSubject = {
+  randomizeQuestions: true,
+  randomizeQuestionOptions: true,
   id: signal("ng-100"),
   title: signal("Angular Exam (Beginner Level)"),
-  duration: signal({hour: 0, minute: 40, second: 30}),
-  questions: signal<QuizQuestion[]>(ngQuestions),
-}
-// 50 Angular (v22) beginner questions. 28 are multi-option (isMultiOption: true).
-// Correct option(s) are marked with a "// correct" comment for use as an answer key.
+  duration: signal({ hour: 0, minute: 40, second: 30 }),
+  questions: ngQuestionsSignal,
+};

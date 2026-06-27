@@ -6,8 +6,14 @@ import {angularExam} from './angular-exam';
 import {advanceAngularExam} from './advanced-angular-developer';
 import {bibleExam} from './bible-study-beginner';
 import {economicsExam} from './economicsExam';
+import {htmlExam} from './html-exam';
+import {cssExam} from './css-exam';
+import {jsExam} from './javascript-exam';
 
 export const examDb:ExamSubject[] = [
+  htmlExam,
+  cssExam,
+  jsExam,
   cSharpAdvanceExam,
   csharpBeginnersExam,
   softwareArchExam,
@@ -29,7 +35,7 @@ export function randomizeArrayIndexes<T>(arr: T[]) {
   return arr;
 }
 
-export function randomizeQuestionsIfRequested( questions: QuizQuestion[] ) {
+export function randomizeQuestionsIfRequested<T>( questions: T[] ) {
       return randomizeArrayIndexes(questions);
 
 }

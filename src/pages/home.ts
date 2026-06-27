@@ -1,5 +1,4 @@
 import {Component, inject, signal} from '@angular/core';
-import {StopWatch} from '../shared/stopWatch/StopWatch';
 import {ExamQuestionService} from '../shared/examination-proj/services/exam-question-services';
 import {RouterLink} from '@angular/router';
 
@@ -9,7 +8,6 @@ import {RouterLink} from '@angular/router';
 @Component({
   selector: 'mastering-git',
   imports: [
-    StopWatch,
     RouterLink
   ],
   template: `

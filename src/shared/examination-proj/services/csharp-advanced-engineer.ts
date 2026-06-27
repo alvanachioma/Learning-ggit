@@ -1,5 +1,6 @@
 import {QuizQuestion, AnswerKey, ExamSubject} from './exam-question-services';
 import {signal} from '@angular/core';
+import { randomizeQuestionsIfRequested } from './examDb';
 
 // ============================================================================
 // C# — Advanced (Software Engineer Level)
@@ -497,9 +498,9 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
     isMultiOption: true,
     options: [
       { id: 1, text: "async" }, // correct
-      { id: 2, text: "await" }, // correct
-      { id: 3, text: "Task" }, // correct
-      { id: 4, text: "ValueTask" } // correct
+      { id: 2, text: "Promise" },
+      { id: 3, text: "Coroutine" },
+      { id: 4, text: "ParallelStream" }
     ]
   },
   {
@@ -510,7 +511,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "Func<>" }, // correct
       { id: 2, text: "Action<>" }, // correct
       { id: 3, text: "Predicate<>" }, // correct
-      { id: 4, text: "EventHandler" } // correct
+      { id: 4, text: "Callback<>" }
     ]
   },
   {
@@ -520,8 +521,8 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "It reclaims unused managed memory" }, // correct
       { id: 2, text: "It uses generations (0, 1, 2)" }, // correct
-      { id: 3, text: "Its timing is non-deterministic" }, // correct
-      { id: 4, text: "It can be requested via GC.Collect()" } // correct
+      { id: 3, text: "It manually frees every object instantly" },
+      { id: 4, text: "It compiles IL to machine code" }
     ]
   },
   {
@@ -532,7 +533,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "They provide value-based equality" }, // correct
       { id: 2, text: "They have concise positional syntax" }, // correct
       { id: 3, text: "They support non-destructive 'with' copies" }, // correct
-      { id: 4, text: "They can be made immutable" } // correct
+      { id: 4, text: "They cannot contain any properties" }
     ]
   },
   {
@@ -542,8 +543,8 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "lock / Monitor" }, // correct
       { id: 2, text: "SemaphoreSlim" }, // correct
-      { id: 3, text: "Interlocked" }, // correct
-      { id: 4, text: "Mutex" } // correct
+      { id: 3, text: "Console.WriteLine" },
+      { id: 4, text: "StringBuilder" }
     ]
   },
   {
@@ -554,7 +555,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "Type patterns" }, // correct
       { id: 2, text: "Property patterns" }, // correct
       { id: 3, text: "Relational patterns" }, // correct
-      { id: 4, text: "switch expressions" } // correct
+      { id: 4, text: "for-loops" }
     ]
   },
   {
@@ -565,7 +566,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "They can reduce allocations" }, // correct
       { id: 2, text: "Span<T> is stack-only" }, // correct
       { id: 3, text: "They provide a view over contiguous memory" }, // correct
-      { id: 4, text: "They are useful for slicing without copying" } // correct
+      { id: 4, text: "They always allocate on the managed heap" }
     ]
   },
   {
@@ -576,7 +577,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "where T : class" }, // correct
       { id: 2, text: "where T : struct" }, // correct
       { id: 3, text: "where T : new()" }, // correct
-      { id: 4, text: "where T : IComparable" } // correct
+      { id: 4, text: "where T : voidable" }
     ]
   },
   {
@@ -587,7 +588,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "IEnumerable executes in memory" }, // correct
       { id: 2, text: "IQueryable can translate to SQL" }, // correct
       { id: 3, text: "Both support deferred execution" }, // correct
-      { id: 4, text: "IQueryable builds expression trees" } // correct
+      { id: 4, text: "IEnumerable always executes on the database server" }
     ]
   },
   {
@@ -598,7 +599,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "readonly fields" }, // correct
       { id: 2, text: "init-only accessors" }, // correct
       { id: 3, text: "records" }, // correct
-      { id: 4, text: "readonly struct" } // correct
+      { id: 4, text: "The volatile keyword" }
     ]
   },
   {
@@ -609,7 +610,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "Catch specific exception types" }, // correct
       { id: 2, text: "Avoid silently swallowing exceptions" }, // correct
       { id: 3, text: "Use 'throw;' to preserve the stack trace" }, // correct
-      { id: 4, text: "Use finally for cleanup" } // correct
+      { id: 4, text: "Catch Exception and silently ignore it" }
     ]
   },
   {
@@ -620,7 +621,7 @@ export const csharpAdvancedQuestions: QuizQuestion[] = [
       { id: 1, text: "Span<T> / stackalloc" }, // correct
       { id: 2, text: "ArrayPool<T>" }, // correct
       { id: 3, text: "Using structs for small, short-lived data" }, // correct
-      { id: 4, text: "Avoiding unnecessary boxing" } // correct
+      { id: 4, text: "Boxing every value type in a loop" }
     ]
   }
 ];
@@ -674,22 +675,33 @@ export const csharpAdvancedAnswers: AnswerKey[] = [
   { questionId: 46, correctOptionIds: [1] },
   { questionId: 47, correctOptionIds: [1] },
   { questionId: 48, correctOptionIds: [1] },
-  { questionId: 49, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 50, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 51, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 52, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 53, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 54, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 55, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 56, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 57, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 58, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 59, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 60, correctOptionIds: [1, 2, 3, 4] }
+  { questionId: 49, correctOptionIds: [1] },
+  { questionId: 50, correctOptionIds: [1, 2, 3] },
+  { questionId: 51, correctOptionIds: [1, 2] },
+  { questionId: 52, correctOptionIds: [1, 2, 3] },
+  { questionId: 53, correctOptionIds: [1, 2] },
+  { questionId: 54, correctOptionIds: [1, 2, 3] },
+  { questionId: 55, correctOptionIds: [1, 2, 3] },
+  { questionId: 56, correctOptionIds: [1, 2, 3] },
+  { questionId: 57, correctOptionIds: [1, 2, 3] },
+  { questionId: 58, correctOptionIds: [1, 2, 3] },
+  { questionId: 59, correctOptionIds: [1, 2, 3] },
+  { questionId: 60, correctOptionIds: [1, 2, 3] }
 ];
+
+const csharpAdvancedQuestionsSignal = signal<QuizQuestion[]>(randomizeQuestionsIfRequested([...csharpAdvancedQuestions]));
+csharpAdvancedQuestionsSignal.update(x => {
+  x.forEach(y => {
+    y.options = randomizeQuestionsIfRequested(y.options);
+  });
+  return [...x];
+});
+
 export const cSharpAdvanceExam: ExamSubject = {
+  randomizeQuestions: true,
+  randomizeQuestionOptions: true,
   id: signal("csharp-300"),
   title: signal("C# — Advanced (Software Engineer Level)"),
-  duration: signal({hour: 1, minute: 20, second: 0}),
-  questions: signal<QuizQuestion[]>(csharpAdvancedQuestions),
-}
+  duration: signal({ hour: 1, minute: 20, second: 0 }),
+  questions: csharpAdvancedQuestionsSignal,
+};

@@ -1,5 +1,6 @@
 import {QuizQuestion, AnswerKey, ExamSubject} from './exam-question-services';
 import {signal} from '@angular/core';
+import { randomizeQuestionsIfRequested } from './examDb';
 
 // ============================================================================
 // Advanced Angular Developer
@@ -319,9 +320,9 @@ export const advancedAngularQuestions: QuizQuestion[] = [
     isMultiOption: true,
     options: [
       { id: 1, text: "signal()" }, // correct
-      { id: 2, text: "computed()" }, // correct
-      { id: 3, text: "effect()" }, // correct
-      { id: 4, text: "untracked()" } // correct
+      { id: 2, text: "ngOnInit()" },
+      { id: 3, text: "Promise.all()" },
+      { id: 4, text: "subscribe()" }
     ]
   },
   {
@@ -332,7 +333,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "signal()" }, // correct
       { id: 2, text: "input()" }, // correct
       { id: 3, text: "model()" }, // correct
-      { id: 4, text: "linkedSignal()" } // correct
+      { id: 4, text: "ngModelChange()" }
     ]
   },
   {
@@ -342,8 +343,8 @@ export const advancedAngularQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "switchMap" }, // correct
       { id: 2, text: "mergeMap" }, // correct
-      { id: 3, text: "concatMap" }, // correct
-      { id: 4, text: "exhaustMap" } // correct
+      { id: 3, text: "Array.map" },
+      { id: 4, text: "forEach" }
     ]
   },
   {
@@ -354,7 +355,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "Subject" }, // correct
       { id: 2, text: "BehaviorSubject" }, // correct
       { id: 3, text: "ReplaySubject" }, // correct
-      { id: 4, text: "AsyncSubject" } // correct
+      { id: 4, text: "PromiseSubject" }
     ]
   },
   {
@@ -365,7 +366,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "useClass" }, // correct
       { id: 2, text: "useValue" }, // correct
       { id: 3, text: "useFactory" }, // correct
-      { id: 4, text: "useExisting" } // correct
+      { id: 4, text: "useTemplate" }
     ]
   },
   {
@@ -398,7 +399,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "CanActivateFn" }, // correct
       { id: 2, text: "CanDeactivateFn" }, // correct
       { id: 3, text: "ResolveFn" }, // correct
-      { id: 4, text: "CanMatchFn" } // correct
+      { id: 4, text: "CanRenderFn" }
     ]
   },
   {
@@ -409,7 +410,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "OnPush change detection" }, // correct
       { id: 2, text: "track in @for" }, // correct
       { id: 3, text: "@defer lazy loading" }, // correct
-      { id: 4, text: "Pure pipes" } // correct
+      { id: 4, text: "Putting heavy logic in templates" }
     ]
   },
   {
@@ -419,8 +420,8 @@ export const advancedAngularQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "FormControl" }, // correct
       { id: 2, text: "FormGroup" }, // correct
-      { id: 3, text: "FormArray" }, // correct
-      { id: 4, text: "FormBuilder" } // correct
+      { id: 3, text: "FormModel" },
+      { id: 4, text: "FormTemplate" }
     ]
   },
   {
@@ -431,7 +432,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "An input reference change" }, // correct
       { id: 2, text: "An event raised from within the component" }, // correct
       { id: 3, text: "An async pipe emission" }, // correct
-      { id: 4, text: "A signal read in the template updating" } // correct
+      { id: 4, text: "A timer running on an unrelated component" }
     ]
   },
   {
@@ -453,7 +454,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "viewChild()" }, // correct
       { id: 2, text: "viewChildren()" }, // correct
       { id: 3, text: "contentChild()" }, // correct
-      { id: 4, text: "contentChildren()" } // correct
+      { id: 4, text: "querySelectorAll()" }
     ]
   },
   {
@@ -464,7 +465,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "ng-content" }, // correct
       { id: 2, text: "ng-template" }, // correct
       { id: 3, text: "ng-container" }, // correct
-      { id: 4, text: "ngTemplateOutlet" } // correct
+      { id: 4, text: "ng-include" }
     ]
   },
   {
@@ -475,7 +476,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "They use the 'imports' array directly" }, // correct
       { id: 2, text: "They do not require an NgModule" }, // correct
       { id: 3, text: "They are the default in modern Angular" }, // correct
-      { id: 4, text: "They can be lazy-loaded via loadComponent" } // correct
+      { id: 4, text: "They must be declared in an NgModule" }
     ]
   },
   {
@@ -486,7 +487,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "toSignal()" }, // correct
       { id: 2, text: "toObservable()" }, // correct
       { id: 3, text: "takeUntilDestroyed()" }, // correct
-      { id: 4, text: "outputFromObservable()" } // correct
+      { id: 4, text: "bridgeSignal()" }
     ]
   },
   {
@@ -497,7 +498,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "ngOnInit" }, // correct
       { id: 2, text: "ngOnDestroy" }, // correct
       { id: 3, text: "afterNextRender()" }, // correct
-      { id: 4, text: "afterRender()" } // correct
+      { id: 4, text: "ngWhenRendered()" }
     ]
   },
   {
@@ -508,7 +509,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "provideClientHydration()" }, // correct
       { id: 2, text: "Server-side rendering" }, // correct
       { id: 3, text: "Incremental hydration" }, // correct
-      { id: 4, text: "TransferState" } // correct
+      { id: 4, text: "Browser localStorage caching" }
     ]
   },
   {
@@ -530,7 +531,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "input() for parent-to-child" }, // correct
       { id: 2, text: "output() for child-to-parent" }, // correct
       { id: 3, text: "A shared service using signals" }, // correct
-      { id: 4, text: "model() for two-way binding" } // correct
+      { id: 4, text: "Manipulating the DOM with jQuery" }
     ]
   },
   {
@@ -541,7 +542,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "It subscribes automatically" }, // correct
       { id: 2, text: "It unsubscribes when the component is destroyed" }, // correct
       { id: 3, text: "It works with Observables and Promises" }, // correct
-      { id: 4, text: "It marks the component for change detection on emission" } // correct
+      { id: 4, text: "It converts a signal into a Promise" }
     ]
   },
   {
@@ -550,8 +551,8 @@ export const advancedAngularQuestions: QuizQuestion[] = [
     isMultiOption: true,
     options: [
       { id: 1, text: "of" }, // correct
-      { id: 2, text: "from" }, // correct
-      { id: 3, text: "interval" }, // correct
+      { id: 2, text: "reduce" },
+      { id: 3, text: "toPromise" },
       { id: 4, text: "subscribe" }
     ]
   },
@@ -574,7 +575,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "Signal reads are synchronous" }, // correct
       { id: 2, text: "Signals are pull-based when read" }, // correct
       { id: 3, text: "RxJS excels at async event streams" }, // correct
-      { id: 4, text: "computed() derives state from other signals" } // correct
+      { id: 4, text: "Signals replace TypeScript types" }
     ]
   },
   {
@@ -585,7 +586,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "providedIn: 'root'" }, // correct
       { id: 2, text: "A component's providers array" }, // correct
       { id: 3, text: "providers in ApplicationConfig" }, // correct
-      { id: 4, text: "Route-level providers" } // correct
+      { id: 4, text: "Inside the HTML template text" }
     ]
   },
   {
@@ -596,7 +597,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "They change the DOM layout/structure" }, // correct
       { id: 2, text: "Legacy ones use the * prefix" }, // correct
       { id: 3, text: "@if/@for now cover the common cases" }, // correct
-      { id: 4, text: "They typically use TemplateRef + ViewContainerRef" } // correct
+      { id: 4, text: "They only change CSS colors" }
     ]
   },
   {
@@ -607,7 +608,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "They can modify outgoing requests" }, // correct
       { id: 2, text: "They can handle responses and errors" }, // correct
       { id: 3, text: "Functional ones use HttpInterceptorFn" }, // correct
-      { id: 4, text: "They are registered via withInterceptors()" } // correct
+      { id: 4, text: "They render HTML templates" }
     ]
   },
   {
@@ -618,7 +619,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "Heavy computation directly in templates" }, // correct
       { id: 2, text: "Overusing impure pipes" }, // correct
       { id: 3, text: "Not using OnPush or track" }, // correct
-      { id: 4, text: "Large eager (non-lazy) bundles" } // correct
+      { id: 4, text: "Using OnPush change detection" }
     ]
   },
   {
@@ -629,7 +630,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "It requires a track expression" }, // correct
       { id: 2, text: "It supports an @empty block" }, // correct
       { id: 3, text: "It exposes $index, $first, $last, etc." }, // correct
-      { id: 4, text: "It replaces *ngFor" } // correct
+      { id: 4, text: "It performs HTTP requests" }
     ]
   },
   {
@@ -639,7 +640,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "TestBed" }, // correct
       { id: 2, text: "ComponentFixture" }, // correct
-      { id: 3, text: "fakeAsync" }, // correct
+      { id: 3, text: "HttpClient" },
       { id: 4, text: "RouterOutlet" }
     ]
   },
@@ -651,7 +652,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "Pipes can be pure or impure" }, // correct
       { id: 2, text: "Custom pipes are created with @Pipe" }, // correct
       { id: 3, text: "The async pipe handles Observables/Promises" }, // correct
-      { id: 4, text: "A pipe implements a transform() method" } // correct
+      { id: 4, text: "A pipe must extend Component" }
     ]
   },
   {
@@ -662,7 +663,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "input()" }, // correct
       { id: 2, text: "input.required()" }, // correct
       { id: 3, text: "output()" }, // correct
-      { id: 4, text: "model()" } // correct
+      { id: 4, text: "ngOnChanges()" }
     ]
   },
   {
@@ -673,7 +674,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "It runs side effects when read signals change" }, // correct
       { id: 2, text: "It must be created in an injection context (by default)" }, // correct
       { id: 3, text: "It can register cleanup via onCleanup" }, // correct
-      { id: 4, text: "It runs at least once initially" } // correct
+      { id: 4, text: "It returns an Observable" }
     ]
   },
   {
@@ -684,7 +685,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "path" }, // correct
       { id: 2, text: "component / loadComponent" }, // correct
       { id: 3, text: "children" }, // correct
-      { id: 4, text: "canActivate" } // correct
+      { id: 4, text: "styleUrl" }
     ]
   },
   {
@@ -695,7 +696,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "Use the async pipe" }, // correct
       { id: 2, text: "Use takeUntilDestroyed()" }, // correct
       { id: 3, text: "Unsubscribe manually in ngOnDestroy" }, // correct
-      { id: 4, text: "Use take(1) for one-shot streams" } // correct
+      { id: 4, text: "Never subscribing at all" }
     ]
   },
   {
@@ -717,7 +718,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "ng-template defines a template that is not rendered by default" }, // correct
       { id: 2, text: "ng-container groups elements without adding DOM" }, // correct
       { id: 3, text: "TemplateRef references a template" }, // correct
-      { id: 4, text: "Templates render via ViewContainerRef or ngTemplateOutlet" } // correct
+      { id: 4, text: "ng-container always adds a wrapper div" }
     ]
   },
   {
@@ -728,7 +729,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "Renderer2 abstracts DOM manipulation" }, // correct
       { id: 2, text: "ElementRef wraps a native element" }, // correct
       { id: 3, text: "They help keep code SSR-safe vs. direct DOM access" }, // correct
-      { id: 4, text: "They can be injected into directives/components" } // correct
+      { id: 4, text: "They are only available inside NgModules" }
     ]
   },
   {
@@ -739,7 +740,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "ChangeDetectorRef.markForCheck()" }, // correct
       { id: 2, text: "ChangeDetectorRef.detectChanges()" }, // correct
       { id: 3, text: "ChangeDetectorRef.detach()" }, // correct
-      { id: 4, text: "ChangeDetectionStrategy.OnPush" } // correct
+      { id: 4, text: "ngStyle.refresh()" }
     ]
   },
   {
@@ -750,7 +751,7 @@ export const advancedAngularQuestions: QuizQuestion[] = [
       { id: 1, text: "esbuild-based application builder" }, // correct
       { id: 2, text: "Vite-powered dev server" }, // correct
       { id: 3, text: "Built-in SSR support" }, // correct
-      { id: 4, text: "Hybrid rendering (SSR + prerender + CSR)" } // correct
+      { id: 4, text: "The Bower package manager" }
     ]
   }
 ];
@@ -786,51 +787,61 @@ export const advancedAngularAnswers: AnswerKey[] = [
   { questionId: 28, correctOptionIds: [1] },
   { questionId: 29, correctOptionIds: [2] },
   { questionId: 30, correctOptionIds: [2] },
-  { questionId: 31, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 32, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 33, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 34, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 35, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 31, correctOptionIds: [1] },
+  { questionId: 32, correctOptionIds: [1, 2, 3] },
+  { questionId: 33, correctOptionIds: [1, 2] },
+  { questionId: 34, correctOptionIds: [1, 2, 3] },
+  { questionId: 35, correctOptionIds: [1, 2, 3] },
   { questionId: 36, correctOptionIds: [1, 2, 3] },
   { questionId: 37, correctOptionIds: [1, 2, 3] },
-  { questionId: 38, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 39, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 40, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 41, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 38, correctOptionIds: [1, 2, 3] },
+  { questionId: 39, correctOptionIds: [1, 2, 3] },
+  { questionId: 40, correctOptionIds: [1, 2] },
+  { questionId: 41, correctOptionIds: [1, 2, 3] },
   { questionId: 42, correctOptionIds: [1, 2, 3] },
-  { questionId: 43, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 44, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 45, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 46, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 47, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 48, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 43, correctOptionIds: [1, 2, 3] },
+  { questionId: 44, correctOptionIds: [1, 2, 3] },
+  { questionId: 45, correctOptionIds: [1, 2, 3] },
+  { questionId: 46, correctOptionIds: [1, 2, 3] },
+  { questionId: 47, correctOptionIds: [1, 2, 3] },
+  { questionId: 48, correctOptionIds: [1, 2, 3] },
   { questionId: 49, correctOptionIds: [1, 2, 3] },
-  { questionId: 50, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 51, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 52, correctOptionIds: [1, 2, 3] },
+  { questionId: 50, correctOptionIds: [1, 2, 3] },
+  { questionId: 51, correctOptionIds: [1, 2, 3] },
+  { questionId: 52, correctOptionIds: [1] },
   { questionId: 53, correctOptionIds: [1, 2, 3] },
-  { questionId: 54, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 55, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 56, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 57, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 58, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 59, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 60, correctOptionIds: [1, 2, 3] },
-  { questionId: 61, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 62, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 63, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 64, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 65, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 54, correctOptionIds: [1, 2, 3] },
+  { questionId: 55, correctOptionIds: [1, 2, 3] },
+  { questionId: 56, correctOptionIds: [1, 2, 3] },
+  { questionId: 57, correctOptionIds: [1, 2, 3] },
+  { questionId: 58, correctOptionIds: [1, 2, 3] },
+  { questionId: 59, correctOptionIds: [1, 2, 3] },
+  { questionId: 60, correctOptionIds: [1, 2] },
+  { questionId: 61, correctOptionIds: [1, 2, 3] },
+  { questionId: 62, correctOptionIds: [1, 2, 3] },
+  { questionId: 63, correctOptionIds: [1, 2, 3] },
+  { questionId: 64, correctOptionIds: [1, 2, 3] },
+  { questionId: 65, correctOptionIds: [1, 2, 3] },
   { questionId: 66, correctOptionIds: [1, 2, 3] },
-  { questionId: 67, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 68, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 69, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 70, correctOptionIds: [1, 2, 3, 4] }
+  { questionId: 67, correctOptionIds: [1, 2, 3] },
+  { questionId: 68, correctOptionIds: [1, 2, 3] },
+  { questionId: 69, correctOptionIds: [1, 2, 3] },
+  { questionId: 70, correctOptionIds: [1, 2, 3] }
 ];
 
+const advancedAngularQuestionsSignal = signal<QuizQuestion[]>(randomizeQuestionsIfRequested([...advancedAngularQuestions]));
+advancedAngularQuestionsSignal.update(x => {
+  x.forEach(y => {
+    y.options = randomizeQuestionsIfRequested(y.options);
+  });
+  return [...x];
+});
+
 export const advanceAngularExam: ExamSubject = {
+  randomizeQuestions: true,
+  randomizeQuestionOptions: true,
   id: signal("ng-300"),
   title: signal("Advanced Angular Developer"),
-  duration: signal({hour: 1, minute: 30, second: 0}),
-  questions: signal<QuizQuestion[]>(advancedAngularQuestions),
-}
+  duration: signal({ hour: 1, minute: 30, second: 0 }),
+  questions: advancedAngularQuestionsSignal,
+};

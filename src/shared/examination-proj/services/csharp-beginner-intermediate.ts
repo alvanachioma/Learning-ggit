@@ -1,5 +1,6 @@
 import {QuizQuestion, AnswerKey, ExamSubject} from './exam-question-services';
 import {signal} from '@angular/core';
+import { randomizeQuestionsIfRequested } from './examDb';
 
 // ============================================================================
 // C# — Beginner & Intermediate Level
@@ -497,8 +498,8 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
     isMultiOption: true,
     options: [
       { id: 1, text: "int" }, // correct
-      { id: 2, text: "bool" }, // correct
-      { id: 3, text: "struct" }, // correct
+      { id: 2, text: "object" },
+      { id: 3, text: "an interface" },
       { id: 4, text: "string" }
     ]
   },
@@ -520,8 +521,8 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "public" }, // correct
       { id: 2, text: "private" }, // correct
-      { id: 3, text: "protected" }, // correct
-      { id: 4, text: "internal" } // correct
+      { id: 3, text: "global" },
+      { id: 4, text: "external" }
     ]
   },
   {
@@ -532,7 +533,7 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
       { id: 1, text: "for" }, // correct
       { id: 2, text: "while" }, // correct
       { id: 3, text: "do-while" }, // correct
-      { id: 4, text: "foreach" } // correct
+      { id: 4, text: "repeat-until" }
     ]
   },
   {
@@ -543,7 +544,7 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
       { id: 1, text: "Encapsulation" }, // correct
       { id: 2, text: "Inheritance" }, // correct
       { id: 3, text: "Polymorphism" }, // correct
-      { id: 4, text: "Abstraction" } // correct
+      { id: 4, text: "Compilation" }
     ]
   },
   {
@@ -553,8 +554,8 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "List<T>" }, // correct
       { id: 2, text: "Dictionary<TKey, TValue>" }, // correct
-      { id: 3, text: "HashSet<T>" }, // correct
-      { id: 4, text: "Queue<T>" } // correct
+      { id: 3, text: "DataFrame<T>" },
+      { id: 4, text: "LinkedArray<T>" }
     ]
   },
   {
@@ -565,7 +566,7 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
       { id: 1, text: "int" }, // correct
       { id: 2, text: "double" }, // correct
       { id: 3, text: "char" }, // correct
-      { id: 4, text: "decimal" } // correct
+      { id: 4, text: "varchar" }
     ]
   },
   {
@@ -576,7 +577,7 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
       { id: 1, text: "try" }, // correct
       { id: 2, text: "catch" }, // correct
       { id: 3, text: "finally" }, // correct
-      { id: 4, text: "throw" } // correct
+      { id: 4, text: "rescue" }
     ]
   },
   {
@@ -587,7 +588,7 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
       { id: 1, text: "Where" }, // correct
       { id: 2, text: "Select" }, // correct
       { id: 3, text: "OrderBy" }, // correct
-      { id: 4, text: "GroupBy" } // correct
+      { id: 4, text: "MapReduce" }
     ]
   },
   {
@@ -598,7 +599,7 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
       { id: 1, text: "They define a contract" }, // correct
       { id: 2, text: "They can be implemented by multiple classes" }, // correct
       { id: 3, text: "They cannot be instantiated directly" }, // correct
-      { id: 4, text: "A class can implement several of them" } // correct
+      { id: 4, text: "They store mutable instance fields with values" }
     ]
   },
   {
@@ -609,7 +610,7 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
       { id: 1, text: "The ?? null-coalescing operator" }, // correct
       { id: 2, text: "The ?. null-conditional operator" }, // correct
       { id: 3, text: "Nullable types (int?)" }, // correct
-      { id: 4, text: "Checking with != null" } // correct
+      { id: 4, text: "Calling delete on the variable" }
     ]
   },
   {
@@ -620,7 +621,7 @@ export const csharpBeginnerQuestions: QuizQuestion[] = [
       { id: 1, text: "They belong to the type, not an instance" }, // correct
       { id: 2, text: "They are shared across all instances" }, // correct
       { id: 3, text: "They are accessed via the type name" }, // correct
-      { id: 4, text: "They cannot directly access instance members" } // correct
+      { id: 4, text: "They are recreated for every instance" }
     ]
   }
 ];
@@ -674,23 +675,33 @@ export const csharpBeginnerAnswers: AnswerKey[] = [
   { questionId: 46, correctOptionIds: [2] },
   { questionId: 47, correctOptionIds: [1] },
   { questionId: 48, correctOptionIds: [1] },
-  { questionId: 49, correctOptionIds: [1, 2, 3] },
+  { questionId: 49, correctOptionIds: [1] },
   { questionId: 50, correctOptionIds: [1, 2, 3] },
-  { questionId: 51, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 52, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 53, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 54, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 55, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 56, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 57, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 58, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 59, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 60, correctOptionIds: [1, 2, 3, 4] }
+  { questionId: 51, correctOptionIds: [1, 2] },
+  { questionId: 52, correctOptionIds: [1, 2, 3] },
+  { questionId: 53, correctOptionIds: [1, 2, 3] },
+  { questionId: 54, correctOptionIds: [1, 2] },
+  { questionId: 55, correctOptionIds: [1, 2, 3] },
+  { questionId: 56, correctOptionIds: [1, 2, 3] },
+  { questionId: 57, correctOptionIds: [1, 2, 3] },
+  { questionId: 58, correctOptionIds: [1, 2, 3] },
+  { questionId: 59, correctOptionIds: [1, 2, 3] },
+  { questionId: 60, correctOptionIds: [1, 2, 3] }
 ];
 
+const csharpBeginnerQuestionsSignal = signal<QuizQuestion[]>(randomizeQuestionsIfRequested([...csharpBeginnerQuestions]));
+csharpBeginnerQuestionsSignal.update(x => {
+  x.forEach(y => {
+    y.options = randomizeQuestionsIfRequested(y.options);
+  });
+  return [...x];
+});
+
 export const csharpBeginnersExam: ExamSubject = {
+  randomizeQuestions: true,
+  randomizeQuestionOptions: true,
   id: signal("csharp-100"),
   title: signal("C# — Beginner & Intermediate Level"),
-  duration: signal({hour: 1, minute: 0, second: 0}),
-  questions: signal<QuizQuestion[]>(csharpBeginnerQuestions),
-}
+  duration: signal({ hour: 1, minute: 0, second: 0 }),
+  questions: csharpBeginnerQuestionsSignal,
+};

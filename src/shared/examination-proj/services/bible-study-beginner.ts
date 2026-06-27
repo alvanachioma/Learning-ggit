@@ -1,5 +1,6 @@
 import { QuizQuestion, AnswerKey, ExamSubject } from './exam-question-services';
 import { signal } from '@angular/core';
+import { randomizeQuestionsIfRequested } from './examDb';
 
 // ============================================================================
 // Bible Study — Beginner Level
@@ -467,8 +468,8 @@ export const bibleQuestions: QuizQuestion[] = [
     isMultiOption: true,
     options: [
       { id: 1, text: "Genesis" }, // correct
-      { id: 2, text: "Exodus" }, // correct
-      { id: 3, text: "Leviticus" }, // correct
+      { id: 2, text: "Matthew" },
+      { id: 3, text: "Acts" },
       { id: 4, text: "Romans" }
     ]
   },
@@ -490,7 +491,7 @@ export const bibleQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "You shall not steal" }, // correct
       { id: 2, text: "You shall not murder" }, // correct
-      { id: 3, text: "Honor your father and mother" }, // correct
+      { id: 3, text: "Always attend church on Sunday" },
       { id: 4, text: "Always give exactly 10%" }
     ]
   },
@@ -513,7 +514,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Matthew" }, // correct
       { id: 2, text: "Mark" }, // correct
       { id: 3, text: "Luke" }, // correct
-      { id: 4, text: "John" } // correct
+      { id: 4, text: "Acts" }
     ]
   },
   {
@@ -524,7 +525,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Love" }, // correct
       { id: 2, text: "Joy" }, // correct
       { id: 3, text: "Peace" }, // correct
-      { id: 4, text: "Patience" } // correct
+      { id: 4, text: "Wealth" }
     ]
   },
   {
@@ -533,8 +534,8 @@ export const bibleQuestions: QuizQuestion[] = [
     isMultiOption: true,
     options: [
       { id: 1, text: "Abraham" }, // correct
-      { id: 2, text: "Moses" }, // correct
-      { id: 3, text: "David" }, // correct
+      { id: 2, text: "Peter" },
+      { id: 3, text: "John the Baptist" },
       { id: 4, text: "Paul" }
     ]
   },
@@ -556,7 +557,7 @@ export const bibleQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "Frogs" }, // correct
       { id: 2, text: "Locusts" }, // correct
-      { id: 3, text: "Darkness" }, // correct
+      { id: 3, text: "Snowstorms" },
       { id: 4, text: "Earthquakes" }
     ]
   },
@@ -578,7 +579,7 @@ export const bibleQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "The Prodigal Son" }, // correct
       { id: 2, text: "The Good Samaritan" }, // correct
-      { id: 3, text: "The Sower" }, // correct
+      { id: 3, text: "The Exodus story" },
       { id: 4, text: "Noah's Ark" }
     ]
   },
@@ -590,7 +591,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Savior" }, // correct
       { id: 2, text: "Messiah" }, // correct
       { id: 3, text: "Lamb of God" }, // correct
-      { id: 4, text: "Son of God" } // correct
+      { id: 4, text: "Pharaoh" }
     ]
   },
   {
@@ -678,7 +679,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Isaiah" }, // correct
       { id: 2, text: "Jeremiah" }, // correct
       { id: 3, text: "Ezekiel" }, // correct
-      { id: 4, text: "Daniel" } // correct
+      { id: 4, text: "Matthew" }
     ]
   },
   {
@@ -689,7 +690,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "He was crucified" }, // correct
       { id: 2, text: "He died" }, // correct
       { id: 3, text: "He was buried" }, // correct
-      { id: 4, text: "He rose again" } // correct
+      { id: 4, text: "He built the temple" }
     ]
   },
   {
@@ -722,7 +723,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "The helmet of salvation" }, // correct
       { id: 2, text: "The shield of faith" }, // correct
       { id: 3, text: "The belt of truth" }, // correct
-      { id: 4, text: "The sword of the Spirit" } // correct
+      { id: 4, text: "The crown of gold" }
     ]
   },
   {
@@ -733,7 +734,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Psalms" }, // correct
       { id: 2, text: "Proverbs" }, // correct
       { id: 3, text: "Ecclesiastes" }, // correct
-      { id: 4, text: "Job" } // correct
+      { id: 4, text: "Exodus" }
     ]
   },
   {
@@ -799,7 +800,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Jerusalem" }, // correct
       { id: 2, text: "Bethlehem" }, // correct
       { id: 3, text: "Nazareth" }, // correct
-      { id: 4, text: "Galilee" } // correct
+      { id: 4, text: "Mount Olympus" }
     ]
   },
   {
@@ -810,7 +811,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Light" }, // correct
       { id: 2, text: "The sea and dry land" }, // correct
       { id: 3, text: "Animals" }, // correct
-      { id: 4, text: "Human beings" } // correct
+      { id: 4, text: "Automobiles" }
     ]
   },
   {
@@ -832,7 +833,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Judah" }, // correct
       { id: 2, text: "Reuben" }, // correct
       { id: 3, text: "Dan" }, // correct
-      { id: 4, text: "Naphtali" } // correct
+      { id: 4, text: "Samaria" }
     ]
   },
   {
@@ -843,7 +844,7 @@ export const bibleQuestions: QuizQuestion[] = [
       { id: 1, text: "Romans" }, // correct
       { id: 2, text: "1 Corinthians" }, // correct
       { id: 3, text: "Hebrews" }, // correct
-      { id: 4, text: "James" } // correct
+      { id: 4, text: "Genesis" }
     ]
   }
 ];
@@ -894,18 +895,18 @@ export const bibleAnswers: AnswerKey[] = [
   { questionId: 43, correctOptionIds: [2] },
   { questionId: 44, correctOptionIds: [1] },
   { questionId: 45, correctOptionIds: [2] },
-  { questionId: 46, correctOptionIds: [1, 2, 3] },
+  { questionId: 46, correctOptionIds: [1] },
   { questionId: 47, correctOptionIds: [1, 2, 3] },
-  { questionId: 48, correctOptionIds: [1, 2, 3] },
+  { questionId: 48, correctOptionIds: [1, 2] },
   { questionId: 49, correctOptionIds: [1, 2, 3] },
-  { questionId: 50, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 51, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 52, correctOptionIds: [1, 2, 3] },
+  { questionId: 50, correctOptionIds: [1, 2, 3] },
+  { questionId: 51, correctOptionIds: [1, 2, 3] },
+  { questionId: 52, correctOptionIds: [1] },
   { questionId: 53, correctOptionIds: [1, 2, 3] },
-  { questionId: 54, correctOptionIds: [1, 2, 3] },
+  { questionId: 54, correctOptionIds: [1, 2] },
   { questionId: 55, correctOptionIds: [1, 2, 3] },
-  { questionId: 56, correctOptionIds: [1, 2, 3] },
-  { questionId: 57, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 56, correctOptionIds: [1, 2] },
+  { questionId: 57, correctOptionIds: [1, 2, 3] },
   { questionId: 58, correctOptionIds: [1, 2, 3] },
   { questionId: 59, correctOptionIds: [1, 2, 3] },
   { questionId: 60, correctOptionIds: [1, 2, 3] },
@@ -913,28 +914,39 @@ export const bibleAnswers: AnswerKey[] = [
   { questionId: 62, correctOptionIds: [1, 2, 3] },
   { questionId: 63, correctOptionIds: [1, 2, 3] },
   { questionId: 64, correctOptionIds: [1, 2, 3] },
-  { questionId: 65, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 66, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 65, correctOptionIds: [1, 2, 3] },
+  { questionId: 66, correctOptionIds: [1, 2, 3] },
   { questionId: 67, correctOptionIds: [1, 2, 3] },
   { questionId: 68, correctOptionIds: [1, 2, 3] },
-  { questionId: 69, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 70, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 69, correctOptionIds: [1, 2, 3] },
+  { questionId: 70, correctOptionIds: [1, 2, 3] },
   { questionId: 71, correctOptionIds: [1, 2, 3] },
   { questionId: 72, correctOptionIds: [1, 2, 3] },
   { questionId: 73, correctOptionIds: [1, 2, 3] },
   { questionId: 74, correctOptionIds: [1, 2, 3] },
   { questionId: 75, correctOptionIds: [1, 2, 3] },
-  { questionId: 76, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 77, correctOptionIds: [1, 2, 3, 4] },
+  { questionId: 76, correctOptionIds: [1, 2, 3] },
+  { questionId: 77, correctOptionIds: [1, 2, 3] },
   { questionId: 78, correctOptionIds: [1, 2, 3] },
-  { questionId: 79, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 80, correctOptionIds: [1, 2, 3, 4] }
+  { questionId: 79, correctOptionIds: [1, 2, 3] },
+  { questionId: 80, correctOptionIds: [1, 2, 3] }
 ];
 
 // ExamSubject object that holds the Bible study questions as a property.
+const bibleQuestionsSignal = signal<QuizQuestion[]>(randomizeQuestionsIfRequested([...bibleQuestions]));
+bibleQuestionsSignal.update(x => {
+  x.forEach(y => {
+    y.options = randomizeQuestionsIfRequested(y.options);
+  });
+  return [...x];
+});
+
 export const bibleExam: ExamSubject = {
+  randomizeQuestions: true,
+  randomizeQuestionOptions: true,
   id: signal('bible-101'),
   title: signal('Bible Study (Beginner Level)'),
   duration: signal({ hour: 1, minute: 25, second: 0 }),
-  questions: signal<QuizQuestion[]>(bibleQuestions)
+  questions: bibleQuestionsSignal
 };
+

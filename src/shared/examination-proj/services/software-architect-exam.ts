@@ -1,5 +1,6 @@
 import {QuizQuestion, AnswerKey, ExamSubject} from './exam-question-services';
 import {signal} from '@angular/core';
+import { randomizeQuestionsIfRequested } from './examDb';
 
 // ============================================================================
 // Software Architect Level
@@ -499,9 +500,9 @@ export const architectQuestions: QuizQuestion[] = [
     isMultiOption: true,
     options: [
       { id: 1, text: "Single Responsibility" }, // correct
-      { id: 2, text: "Open/Closed" }, // correct
-      { id: 3, text: "Liskov Substitution" }, // correct
-      { id: 4, text: "Dependency Inversion" } // correct
+      { id: 2, text: "Rapid Prototyping" },
+      { id: 3, text: "Waterfall Delivery" },
+      { id: 4, text: "Database Normalization" }
     ]
   },
   {
@@ -512,7 +513,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "Singleton" }, // correct
       { id: 2, text: "Factory Method" }, // correct
       { id: 3, text: "Abstract Factory" }, // correct
-      { id: 4, text: "Builder" } // correct
+      { id: 4, text: "Observer" }
     ]
   },
   {
@@ -523,7 +524,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "Adapter" }, // correct
       { id: 2, text: "Decorator" }, // correct
       { id: 3, text: "Facade" }, // correct
-      { id: 4, text: "Proxy" } // correct
+      { id: 4, text: "Strategy" }
     ]
   },
   {
@@ -534,7 +535,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "Observer" }, // correct
       { id: 2, text: "Strategy" }, // correct
       { id: 3, text: "Command" }, // correct
-      { id: 4, text: "Mediator" } // correct
+      { id: 4, text: "Singleton" }
     ]
   },
   {
@@ -544,8 +545,8 @@ export const architectQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "Entities" }, // correct
       { id: 2, text: "Value Objects" }, // correct
-      { id: 3, text: "Aggregates" }, // correct
-      { id: 4, text: "Bounded Contexts" } // correct
+      { id: 3, text: "Database Triggers" },
+      { id: 4, text: "Stored Procedures" }
     ]
   },
   {
@@ -556,7 +557,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "Circuit Breaker" }, // correct
       { id: 2, text: "Retry" }, // correct
       { id: 3, text: "Bulkhead" }, // correct
-      { id: 4, text: "Timeout" } // correct
+      { id: 4, text: "Hardcoding credentials" }
     ]
   },
   {
@@ -567,7 +568,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "Microservices" }, // correct
       { id: 2, text: "Layered (n-tier)" }, // correct
       { id: 3, text: "Event-driven" }, // correct
-      { id: 4, text: "Hexagonal (Ports & Adapters)" } // correct
+      { id: 4, text: "Spaghetti scripting" }
     ]
   },
   {
@@ -578,7 +579,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "Store config in the environment" }, // correct
       { id: 2, text: "Execute the app as stateless processes" }, // correct
       { id: 3, text: "Keep dev/prod parity" }, // correct
-      { id: 4, text: "Treat logs as event streams" } // correct
+      { id: 4, text: "Store secrets in source code" }
     ]
   },
   {
@@ -588,8 +589,8 @@ export const architectQuestions: QuizQuestion[] = [
     options: [
       { id: 1, text: "Sharding" }, // correct
       { id: 2, text: "Replication" }, // correct
-      { id: 3, text: "Caching" }, // correct
-      { id: 4, text: "Load balancing" } // correct
+      { id: 3, text: "Vertical-only scaling" },
+      { id: 4, text: "Single-threaded processing" }
     ]
   },
   {
@@ -600,7 +601,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "REST" }, // correct
       { id: 2, text: "gRPC" }, // correct
       { id: 3, text: "GraphQL" }, // correct
-      { id: 4, text: "SOAP" } // correct
+      { id: 4, text: "SMTP" }
     ]
   },
   {
@@ -611,7 +612,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "Logging" }, // correct
       { id: 2, text: "Metrics" }, // correct
       { id: 3, text: "Distributed tracing" }, // correct
-      { id: 4, text: "Alerting" } // correct
+      { id: 4, text: "Source control" }
     ]
   },
   {
@@ -622,7 +623,7 @@ export const architectQuestions: QuizQuestion[] = [
       { id: 1, text: "Message queues" }, // correct
       { id: 2, text: "Publish/subscribe" }, // correct
       { id: 3, text: "Event-driven messaging" }, // correct
-      { id: 4, text: "Saga orchestration/choreography" } // correct
+      { id: 4, text: "Direct shared-database tables" }
     ]
   }
 ];
@@ -676,23 +677,33 @@ export const architectAnswers: AnswerKey[] = [
   { questionId: 46, correctOptionIds: [1] },
   { questionId: 47, correctOptionIds: [1] },
   { questionId: 48, correctOptionIds: [1] },
-  { questionId: 49, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 50, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 51, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 52, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 53, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 54, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 55, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 56, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 57, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 58, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 59, correctOptionIds: [1, 2, 3, 4] },
-  { questionId: 60, correctOptionIds: [1, 2, 3, 4] }
+  { questionId: 49, correctOptionIds: [1] },
+  { questionId: 50, correctOptionIds: [1, 2, 3] },
+  { questionId: 51, correctOptionIds: [1, 2, 3] },
+  { questionId: 52, correctOptionIds: [1, 2, 3] },
+  { questionId: 53, correctOptionIds: [1, 2] },
+  { questionId: 54, correctOptionIds: [1, 2, 3] },
+  { questionId: 55, correctOptionIds: [1, 2, 3] },
+  { questionId: 56, correctOptionIds: [1, 2, 3] },
+  { questionId: 57, correctOptionIds: [1, 2] },
+  { questionId: 58, correctOptionIds: [1, 2, 3] },
+  { questionId: 59, correctOptionIds: [1, 2, 3] },
+  { questionId: 60, correctOptionIds: [1, 2, 3] }
 ];
 
+const architectQuestionsSignal = signal<QuizQuestion[]>(randomizeQuestionsIfRequested([...architectQuestions]));
+architectQuestionsSignal.update(x => {
+  x.forEach(y => {
+    y.options = randomizeQuestionsIfRequested(y.options);
+  });
+  return [...x];
+});
+
 export const softwareArchExam: ExamSubject = {
+  randomizeQuestions: true,
+  randomizeQuestionOptions: true,
   id: signal("software-500"),
   title: signal("Software Architect Level"),
-  duration: signal({hour: 1, minute: 10, second: 0}),
-  questions: signal<QuizQuestion[]>(architectQuestions),
-}
+  duration: signal({ hour: 1, minute: 10, second: 0 }),
+  questions: architectQuestionsSignal,
+};

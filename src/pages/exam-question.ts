@@ -22,25 +22,25 @@ import {ActivatedRoute} from '@angular/router';
       <div
         class="relative overflow-hidden bg-green-100 h-auto min-h-[500px] 2xl:m-8 m-2 w-full lg:w-[600px] xl:w-[650px] 2xl:w-[95%] p-4 rounded-2xl duration-300 hover:ring-4 hover:ring-green-400">
         <div class="flex justify-between">
-          <span class=" rounded-3xl border-blue-100 p-1 shadow-2xl cursor-pointer text-gray-400">{{ exam.title() }}</span>
-          <span class="text-gray-500 font-bold  cursor-pointer">{{ questionTag() }}</span>
+          <span class="text-sm lg:text-xl xl:rounded-3xl border-blue-100  xl:shadow-2xl cursor-pointer text-gray-600">{{ exam.title() }}</span>
+          <span class="text-gray-600 font-bold text-sm lg:text-xl  cursor-pointer">{{ questionTag() }}</span>
         </div>
 
         @if (!hasTimerElapsed()) {
           @if (hasExamStarted() && !timerStopped()) {
             <div animate.leave="animate-slide-down" animate.enter="animate-slide-up" class="">
-              <h3 class="  text-xl font-normal mt-3 p-4 mb-4 border-b-green-400 border-b-2">{{ currentQuestion().title }}</h3>
+              <h3 class="  2xl:text-3xl text-xl  font-normal mt-3 p-4 mb-4 border-b-green-400 border-b-2">{{ currentQuestion().title }}</h3>
               @if(currentQuestion().isMultiOption){
                 <div class="text-lg bg-amber-100 p-4 text-center text-red-500 font-bold">This is a Multi-Option Question. Choose all options that apply</div>
               }
 
-              <div class="grid grid-cols-2 gap-4 ">
+              <div class="grid grid-cols-1 xl:grid-cols-2 xl:gap-4 gap-y-3">
 
                 @for (opt of currentQuestion().options; track opt.id) {
                   <div
                     (click)="markAsSelectedOption(opt)"
                     [class]="(opt?.isSelected ?? false) ? selectedOptionClass() : ''"
-                    class="bg-white ring-2 2xl:text-[1.5rem] text-xl cursor-pointer ring-gray-200 p-4 rounded-2xl">{{ alphabetMap[$index] }} - {{ opt.text }}
+                    class="hover:bg-green-100 hover:ring-4 duration-300 hover:ring-green-400 bg-white ring-2 2xl:text-[1.5rem] text-xl cursor-pointer ring-gray-200 xl:p-4 px-2 py-2 rounded-md xl:rounded-2xl">{{ alphabetMap[$index] }} - {{ opt.text }}
                   </div>
 
                 }
