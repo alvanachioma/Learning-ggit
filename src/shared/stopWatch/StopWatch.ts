@@ -1,4 +1,4 @@
-import {Component, computed, signal, output, input, numberAttribute, effect, linkedSignal} from '@angular/core';
+import {Component, computed, signal, output, input, numberAttribute, effect, linkedSignal, untracked} from '@angular/core';
 
 @Component({
   selector: 'StopWatch',

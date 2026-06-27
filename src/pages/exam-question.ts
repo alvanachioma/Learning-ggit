@@ -1,6 +1,7 @@
 import {Component, computed, signal, inject, viewChild} from '@angular/core';
 import {ExamQuestionService} from '../shared/examination-proj/services/exam-question-services';
 import {StopWatch} from '../shared/stopWatch/StopWatch';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'exam-question',
@@ -19,7 +20,7 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
         </StopWatch>
       </div>
       <div
-        class="relative overflow-hidden bg-green-100 h-[500px] 2xl:m-8 m-2 w-full lg:w-[600px] xl:w-[650px] 2xl:w-[750px] p-4 rounded-2xl duration-300 hover:ring-4 hover:ring-green-400">
+        class="relative overflow-hidden bg-green-100 h-auto min-h-[500px] 2xl:m-8 m-2 w-full lg:w-[600px] xl:w-[650px] 2xl:w-[95%] p-4 rounded-2xl duration-300 hover:ring-4 hover:ring-green-400">
         <div class="flex justify-between">
           <span class=" rounded-3xl border-blue-100 p-1 shadow-2xl cursor-pointer text-gray-400">{{ exam.title() }}</span>
           <span class="text-gray-500 font-bold  cursor-pointer">{{ questionTag() }}</span>
@@ -39,7 +40,7 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
                   <div
                     (click)="markAsSelectedOption(opt)"
                     [class]="(opt?.isSelected ?? false) ? selectedOptionClass() : ''"
-                    class="bg-white ring-2 cursor-pointer ring-gray-200 p-4 rounded-2xl">{{ alphabetMap[$index] }} - {{ opt.text }}
+                    class="bg-white ring-2 2xl:text-[1.5rem] text-xl cursor-pointer ring-gray-200 p-4 rounded-2xl">{{ alphabetMap[$index] }} - {{ opt.text }}
                   </div>
 
                 }
@@ -87,8 +88,8 @@ import {StopWatch} from '../shared/stopWatch/StopWatch';
 
         } @else {
           <div animate.enter="animate-slide-up"
-               class="  px-10 py-4 rounded-3xl ring-4 mt-4 ring-offset-red-400  flex-col flex justify-center items-center h-[85%] bg-red-200 text-red-600 text-xl">
-            <h1 class="text-[2.5rem]">Time Up!😻</h1>
+               class="  px-10 py-4 rounded-3xl ring-4 mt-4 ring-offset-red-400  flex-col flex justify-center items-center h-[400px] bg-red-200 text-red-600 text-xl">
+            <h1 class="text-[2.5rem] animate-bounce delay-75">Time Up!😻</h1>
             <p class="font-bold text-lg">Your answers will be submitted</p>
           </div>
         }
@@ -105,7 +106,8 @@ export class ExamQuestion {
   protected alphabetMap = "ABCDEFG";
   questionIndex = signal(0);
   protected examQuestionService = inject(ExamQuestionService)
-  protected exam = this.examQuestionService.getExam("economics-001");
+  private activeRoute = inject(ActivatedRoute);
+  protected exam = this.examQuestionService.getAngularExam();//getExam("economics-001");
   questionTag = computed(() => {
     return `Question ${this.questionIndex() + 1} of ${this.exam.questions().length}`;
   });
@@ -114,6 +116,19 @@ export class ExamQuestion {
   });
   protected timerStopped = signal(false);
   protected clock = viewChild<StopWatch>("clock");
+
+
+  constructor() {
+    this.activeRoute.queryParams.subscribe(x => {
+      const selectedExamId = x["id"];
+
+      const ex = this.examQuestionService.getExam(selectedExamId);
+      if(ex){
+        this.exam = ex;
+      }
+
+    })
+  }
 
   gotoNextQuestion() {
     this.questionIndex.update(x => {

@@ -6,6 +6,11 @@ import {GridPracticeComponent} from '../pages/grid-practice';
 
 export const routes: Routes = [
   {
+    path:'',
+    redirectTo:'home',
+    pathMatch:'full'
+  },
+  {
     path:'home',
     component:HomeComponent
   },
@@ -21,5 +26,9 @@ export const routes: Routes = [
   {
     path:'grid',
     component:GridPracticeComponent
+  },
+  {
+    path:'**',
+    redirectTo:'home'
   },
 ];
