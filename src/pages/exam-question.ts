@@ -28,12 +28,17 @@ import {ActivatedRoute, Router} from '@angular/router';
 
         @if (!hasTimerElapsed()) {
           @if (hasExamStarted() && !timerStopped()) {
-            <div animate.leave="animate-slide-down" animate.enter="animate-slide-up" class="">
+            <div animate.leave="animate__animated animate__bounceOutUp"
+                 animate.enter="animate__animated animate__bounceInUp"
+                 class="">
               <div class="flex flex-col justify-between gap-y-4">
                 <div class="min-h-[380px]">
                   <h3 class="  2xl:text-3xl text-xl  font-normal mt-3 p-4 mb-4 border-b-green-400 border-b-2">{{ currentQuestion().title }}</h3>
                   @if(currentQuestion().isMultiOption){
-                    <div class="text-lg bg-amber-100 p-4 text-center text-red-500 font-bold">This is a Multi-Option Question. Choose all options that apply</div>
+                    <div
+                      animate.leave="animate__animated animate__fadeOut"
+                      animate.enter="animate__animated animate__fadeIn"
+                      class="text-lg bg-amber-100 p-4 text-center text-red-500 font-bold">This is a Multi-Option Question. Choose all options that apply</div>
                   }
 
                   <div class="grid grid-cols-1 xl:grid-cols-2 xl:gap-4 gap-y-3">
@@ -73,7 +78,9 @@ import {ActivatedRoute, Router} from '@angular/router';
               </div>
             </div>
           } @else if (timerStopped()) {
-            <div class="mt-20 bg-orange-200 ring-4 ring-orange-400 rounded-xl p-6">
+            <div animate.enter="animate__animated animate__fadeInUp"
+                 animate.leave="animate__animated animate__fadeOutUp"
+                 class="mt-20 bg-orange-200 ring-4 ring-orange-400 rounded-xl p-6">
               <h1 class="text-2xl text-gray-600 text-center">Timer Stopped By User action</h1>
               <div class="text-center mt-8">
                 You are seeing this message because you may <br> have submitted the Exam before the timer runs Off
@@ -81,7 +88,9 @@ import {ActivatedRoute, Router} from '@angular/router';
             </div>
           }
           @else {
-            <div class="mt-20">
+            <div class="mt-20"
+                 animate.leave="animate__animated animate__bounceOutDown"
+                 animate.enter="animate__animated animate__bounceInUp">
               <h1 class="text-2xl text-gray-600 text-center">Exams will Start Soon!</h1>
               <div class="text-center mt-8">
                 <button (click)="startExam()"
@@ -93,7 +102,8 @@ import {ActivatedRoute, Router} from '@angular/router';
           }
 
         } @else {
-          <div animate.enter="animate-slide-up"
+          <div animate.leave="animate__animated animate__backInDown"
+               animate.enter="animate__animated animate__backInUp"
                class="  px-10 py-4 rounded-3xl ring-4 mt-4 ring-offset-red-400  flex-col flex justify-center items-center h-[400px] bg-red-200 text-red-600 text-xl">
             <h1 class="text-[2.5rem] animate-bounce delay-75">Time Up!😻</h1>
             <p class="font-bold text-lg">Your answers will be submitted</p>
