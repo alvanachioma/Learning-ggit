@@ -9,6 +9,7 @@ import {economicsExam} from './economicsExam';
 import {htmlExam} from './html-exam';
 import {cssExam} from './css-exam';
 import {jsExam} from './javascript-exam';
+import {signal} from '@angular/core';
 
 export const examDb :ExamSubject[] = [
   economicsExam,
@@ -38,4 +39,17 @@ export function randomizeArrayIndexes<T>(arr: T[]) {
 export function randomizeQuestionsIfRequested<T>( questions: T[] ) {
       return randomizeArrayIndexes(questions);
 
+}
+function resetQuestions(questions: QuizQuestion[] ) {
+  //questions.update(x => randomizeQuestionsIfRequested([...x]))
+  questions.forEach(y => {
+      y.options.forEach(z => z.isSelected = false);
+    });
+  return questions;
+}
+export function resetExamQuestions(exam : ExamSubject)  : ExamSubject{
+  return {
+    ...exam,
+    questions : signal(resetQuestions(exam.questions()))
+  }
 }

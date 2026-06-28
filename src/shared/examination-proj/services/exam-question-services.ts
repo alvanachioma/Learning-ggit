@@ -1,5 +1,5 @@
 import {Injectable, Signal, signal} from '@angular/core';
-import {examDb} from './examDb';
+import {examDb, resetExamQuestions} from './examDb';
 
 export type ExamSubject = {
   id:Signal<string>;
@@ -46,7 +46,7 @@ export class ExamQuestionService {
   getExam(examId : string){
     const exam = examDb.find(exam => exam.id().toLowerCase() === examId.toLowerCase());
     if(exam){
-      return exam;
+      return resetExamQuestions(exam);
     }
     return undefined;
   }

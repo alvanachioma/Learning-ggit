@@ -167,13 +167,17 @@ const questions=signal<QuizQuestion[]>([
     ]
   }
 ]);
+
+
 questions.update(x => randomizeQuestionsIfRequested([...x]))
 questions.update(x => {
   x.forEach(y => {
+    y.options.forEach(z => z.isSelected = false);
     y.options = randomizeQuestionsIfRequested(y.options)
   });
   return  ([...x]);
 });
+
 export const economicsExam : ExamSubject = {
   duration : signal({hour : 0, minute : 0, second : 60}),
   randomizeQuestions : true,
